@@ -1,12 +1,14 @@
 pub mod cmd;
 pub mod search;
+pub mod walk;
 
 use std::io;
 
 use thiserror::Error;
 
 pub use cmd::Args;
-pub use search::Matcher;
+pub use search::{Matcher, search_file};
+pub use walk::collect_files;
 
 #[derive(Debug, Error)]
 pub enum GrepErrors {
@@ -18,6 +20,8 @@ pub enum GrepErrors {
 
     #[error("command error: {0}")]
     CmdError(String),
+    #[error("ignore error: {0}")]
+    IgnoreError(#[from] ignore::Error),
 }
 
 pub type GrepResult<T> = Result<T, GrepErrors>;

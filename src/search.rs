@@ -41,7 +41,7 @@ pub fn split_lines(data: &[u8]) -> Vec<Vec<u8>> {
         .collect()
 }
 
-pub fn search_file(path: &PathBuf, matcher: Matcher) -> GrepResult<Option<FileResult>> {
+pub fn search_file(path: &PathBuf, matcher: &Matcher) -> GrepResult<Option<FileResult>> {
     let mut data = Vec::new();
     File::open(path)?.read_to_end(&mut data)?;
 
